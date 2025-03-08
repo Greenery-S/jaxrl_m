@@ -1,11 +1,10 @@
 from typing import Any, Callable, Dict, Optional, Sequence, Tuple, Union
 import numpy as np
 import jax.numpy as jnp
-import flax
+import flax,jax
 
-PRNGKey = Any
+PRNGKey = jax.Array
 Params = flax.core.FrozenDict[str, Any]
-PRNGKey = Any
 Shape = Sequence[int]
 Dtype = Any  # this could be a real type?
 InfoDict = Dict[str, float]

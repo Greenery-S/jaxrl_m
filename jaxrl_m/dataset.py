@@ -43,6 +43,16 @@ class Dataset(FrozenDict):
         if indx is None:
             indx = np.random.randint(self.size, size=batch_size)
         return self.get_subset(indx)
+    
+    def shuffle(self):
+        indx = np.random.permutation(self.size)
+        self._dict = tree_util.tree_map(lambda arr: arr[indx], self._dict)
+        
+    def split(self, split_ratio: float):
+        split_idx = int(self.size * split_ratio)
+        data_1 = self.get_subset(slice(0, split_idx))
+        data_2 = self.get_subset(slice(split_idx, None))
+        return data_1, data_2
 
     def get_subset(self, indx):
         return tree_util.tree_map(lambda arr: arr[indx], self._dict)
